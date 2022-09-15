@@ -1,11 +1,11 @@
 import React from 'react';
 import Calendar from 'react-calendar'
+import './MainCalendar.css'
 
 const MainCalendar = () => {
     return (
-        <div>
-            <Calendar />
-        </div>
+        <Calendar 
+        formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})}/>
     );
 };
 
