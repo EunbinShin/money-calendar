@@ -61,5 +61,11 @@
         padding-top: 1vh;
         padding-left: 2vw;
     }
+
+    .mylog{
+        background-color: pink;
+        border-radius: 10%;
+        margin-left: 5%;
+    }
 }
  

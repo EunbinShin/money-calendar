@@ -1,28 +1,37 @@
 import React from 'react';
+import './PopupModal.css'
 
-const PopupModal = () => {
+const PopupModal = (props) => {
+    console.log(props.popData)
+    if(props.popData.length !== 0){
+        return (
+            <>
+                <div className='backdrop'></div>
+                <div className='modal'>
+                    {props.popData.map((data)=>{
+                        return(
+                            <div className='header'>
+                                <div>날짜 : {data.date}</div>
+                                <div>지출이름 : {data.name}</div>
+                                <div>지출원 : {data.money}원</div>
+                                <div>기분 : 😢</div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </>
+        );
+    }
     return (
-        <div>
-            <div>
-                <div>날짜 : 9월 16일</div>
-                <div>지출이름 : 치킨 사먹음</div>
-                <div>지출원 : 10000원</div>
-                <div>기분 : 😢</div>
+        <>
+            <div className='backdrop'></div>
+                <div className='modal'>
+                <div className='header'>
+                    없어요
+                </div>
             </div>
-            <div>
-                <div>날짜 : 9월 16일</div>
-                <div>지출이름 : 커피 사먹음</div>
-                <div>지출원 : 4500원</div>
-                <div>기분 : 😊</div>
-            </div>
-            <div>
-                <div>날짜 : 9월 16일</div>
-                <div>지출이름 : 친구 생일선물</div>
-                <div>지출원 : 40000원</div>
-                <div>기분 : 😍</div>
-            </div>
-        </div>
-    );
+        </>
+    )
 };
 
 export default PopupModal;
