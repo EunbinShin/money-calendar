@@ -4,16 +4,53 @@
         margin: 0;
         padding: 0;
     }
+
+    .temp{
+        bottom: 5vh !important;
+        transition: all 1s ease-in;
+    }
+
     .money__input__container{
-        background-color: brown;
+        position: fixed;
+        bottom: -50%;
+        left: 0;
+        right: 0;
+        background-color: rgb(197, 113, 113);
+        border-top-right-radius: 1rem;
+        border-top-left-radius: 1rem;
+        padding: 1rem;
+        transition: all 1s ease-in;
+    }
+
+    .money__input__form div{
+        margin-bottom: 0.2rem;
+    }
+
+    .money__input__form div label{
+        color: white;
+        font-weight: bold;
+    }
+
+    .money__input__form div:first{
+        color: red !important;
+    }
+
+    .money__save__btn{
+        width: 100%;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 30px;
+        background-color: rgb(217, 85, 85);
+        color: white;
+        font-weight: bold;
     }
 
     .money__input__btn{
         width: 100%;
         height: 5vh;
-        position: absolute;
+        position: fixed;
         bottom: 0;
-        z-index: 3;
+        z-index: 10000;
     }
 }
  

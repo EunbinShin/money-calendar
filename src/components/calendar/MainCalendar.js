@@ -7,38 +7,40 @@ import PopupModal from '../modal/PopupModal';
 
 const MainCalendar = () => {
     const context = useContext(myContext)
-    const [isPop, setIsPop] = useState(false)
+    const [clickedDate, setClickedDate] = useState()
     const [popData, setPopData] = useState()
-    return (<>
-        {
-            isPop && <PopupModal popData={popData}/>
-        }
-        <Calendar 
-            onChange={(date)=>{
-                const temp = context.myUsedLog.filter((mylog)=>mylog.date === moment(date).format('YYYY-MM-DD'))
-                setPopData(temp)
-                setIsPop(true)
-            }}
-            formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})}
-            tileContent = {({date, view}) => {
-                let html = []
-                context.myUsedLog.map((mylog, i)=>{
-                    if(mylog.date === moment(date).format('YYYY-MM-DD')){
-                        html.push(
-                            <div key={i} className="mylog">
-                                <span>{mylog.name}</span>
-                            </div>
-                        )
-                    }
-                })
-                
-                return (
-                    <div>
-                        {html}
+    const tileContent = (date) => {
+        let html = []
+        context.myUsedLog.map((mylog, i)=>{
+            if(mylog.date === moment(date).format('YYYY-MM-DD')){
+                html.push(
+                    <div key={i} className="mylog">
+                        <span>{mylog.name}</span>
                     </div>
                 )
-            }}/>
-        </>
+            }
+        })
+        return html
+    }
+    
+    const tileClickHandler = (date) => {
+        const sendData = context.myUsedLog.filter((mylog)=>mylog.date === moment(date).format('YYYY-MM-DD'))
+        setClickedDate(date)
+        setPopData(sendData)
+        context.popUpTrigger(true)
+    }
+    
+    return (
+    <>
+        { context.isPopUp && <PopupModal popDate={clickedDate} popData={popData}/> }
+        <Calendar 
+            onChange={tileClickHandler}
+            formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})}
+            tileContent = {({date, view}) => {
+                const result = tileContent(date)
+                return <div>{result}</div>
+        }}/>
+    </>
     );
 };
 

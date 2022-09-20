@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 
 const myContext = React.createContext({
     onAddAccount: ()=>{},
-    myUsedLog: []
+    myUsedLog: [],
+    isPopUp: false
 })
 
 export const MyContextProvider = (props)=>{
@@ -27,19 +28,26 @@ export const MyContextProvider = (props)=>{
         money: 4500,
         emotion: 4
     }])
+    
+    const [isPopUp, setIsPopUp] = useState(false)
+
+    const setPopUpHandelr = (flag) => {
+        setIsPopUp(flag)
+    }
 
     const addAccountHander = (account) => {
         setMyUsedLog((prevData)=>{
             return [...prevData, account]
         })
-        console.log(myUsedLog)
     }
 
     return (
         <myContext.Provider
             value={{
                 onAddAccount: addAccountHander,
-                myUsedLog: myUsedLog
+                popUpTrigger: setPopUpHandelr,
+                myUsedLog: myUsedLog,
+                isPopUp: isPopUp
             }}>
             {props.children}
         </myContext.Provider>
