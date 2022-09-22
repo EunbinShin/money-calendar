@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import myContext from '../../store/my-context-api'
 import moment from "moment";
 import {
+    ResponsiveContainer,
     BarChart,
     Bar,
     XAxis,
@@ -43,27 +44,28 @@ const Chart = () => {
     }
 
     return (
-        <BarChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-            top: 20,
-            right: 30,
-            left: 20,
-            bottom: 5
-        }}
-        >
-        <Legend />
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="label" />
-        <YAxis />
-        <Bar name="# A" dataKey="emotion1" stackId="a" fill="#8884d8" />
-        <Bar name="# B" dataKey="emotion2" stackId="a" fill="#82ca9d" />
-        <Bar name="# C" dataKey="emotion3" stackId="a" fill="red" />
-        <Bar name="# D" dataKey="emotion4" stackId="a" fill="black" />
-        
-        </BarChart>
+        <div style={{height: '100vh', backgroundColor: 'pink'}}>
+            <ResponsiveContainer width="100%" height="80%">
+                <BarChart
+                data={monthly_data}
+                layout='vertical'
+                margin={{
+                    top: 20,
+                    right: 30,
+                    bottom: 5
+                }}
+                >
+                <Legend />
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis  type="number"/>
+                <YAxis  type="category" dataKey="label"/>
+                <Bar name="😍" dataKey="emotion1" stackId="a" fill="#8884d8" />
+                <Bar name="😊" dataKey="emotion2" stackId="a" fill="#82ca9d" />
+                <Bar name="😢" dataKey="emotion3" stackId="a" fill="red" />
+                <Bar name="😡" dataKey="emotion4" stackId="a" fill="black" />
+                </BarChart>
+            </ResponsiveContainer>
+        </div>
     );
 };
 
