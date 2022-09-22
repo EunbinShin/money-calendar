@@ -1,50 +1,46 @@
-import React, { useState,useContext,useRef } from 'react';
+import React, { useContext, useRef, useReducer, useEffect, useState } from 'react';
 import './MoneyInput.css';
 import myContext from '../../store/my-context-api'
 
 const MoneyInput = () => {
     const context = useContext(myContext)
     const formRef = useRef()
-    const [userInput, setUserInput] = useState({
+
+    const inputReducer = (state, action) => {
+        if(action.type === 'USER_INPUT'){
+            return {
+                ...state,
+                [action.field] : action.value
+            }
+        }
+        
+        return {
+            date: '',
+            name: '',
+            money: 0,
+            emotion: 0
+        }
+    }
+
+    const [userInputState, dispatchUserInputState] = useReducer(inputReducer,{
         date: '',
         name: '',
         money: 0,
         emotion: 0
     })
 
-    const dateChangeHandler = (event) =>{
-        setUserInput((prevState)=>{
-            return {...prevState, date: event.target.value}
-        })
-    }
-
-    const nameChangeHandler = (event) =>{
-        setUserInput((prevState)=>{
-            return {...prevState, name: event.target.value}
-        })
-    }
-
-    const moneyChangeHandler = (event) =>{
-        setUserInput((prevState)=>{
-            return {...prevState, money: parseInt(event.target.value)}
-        })
-    }
-
-    const emotionChangeHadler = (event) =>{
-        setUserInput((prevState)=>{
-            return {...prevState, emotion: parseInt(event.target.value)}
+    const inputChangeHandler = (event) =>{
+        dispatchUserInputState({
+            type: 'USER_INPUT',
+            field: event.target.name,
+            value: event.target.value
         })
     }
 
     const submitMoneyFormHandler = (event) => {
         event.preventDefault()
-        context.onAddAccount(userInput)
-        setUserInput({
-            date: '',
-            name: '',
-            money: 0,
-            emotion: 0
-        })
+        context.onAddAccount(userInputState)
+        dispatchUserInputState({type: 'USER_RESET'})
     }
 
     return (
@@ -65,33 +61,39 @@ const MoneyInput = () => {
                 <div>
                     <label>날짜 : </label>
                     <input 
+                        required
                         type="date"
-                        value={userInput.date}
-                        onChange={dateChangeHandler}
+                        name="date"
+                        value={userInputState.date}
+                        onChange={inputChangeHandler}
                     />
                 </div>
                 <div>
                     <label>내용 : </label>
                     <input 
+                        required
                         type="text"
-                        value={userInput.name}
-                        onChange={nameChangeHandler}
+                        name="name"
+                        value={userInputState.name}
+                        onChange={inputChangeHandler}
                     />
                 </div>
                 <div>
                     <label>내역 : </label>
                     <input 
+                        required
                         type="number"
-                        value={userInput.money}
-                        onChange={moneyChangeHandler}
+                        name="money"
+                        value={userInputState.money}
+                        onChange={inputChangeHandler}
                     />
                 </div>
                 <div>
                     <label>기분 : </label>
-                    <label><input type="radio" name="emoji" value="1" onChange={emotionChangeHadler}/>😍</label>
-                    <label><input type="radio" name="emoji" value="2" onChange={emotionChangeHadler}/>😊</label>
-                    <label><input type="radio" name="emoji" value="3" onChange={emotionChangeHadler}/>😢</label>
-                    <label><input type="radio" name="emoji" value="4" onChange={emotionChangeHadler}/>😡</label>
+                    <label><input required type="radio" name="emotion" value="1" onChange={inputChangeHandler}/>😍</label>
+                    <label><input required type="radio" name="emotion" value="2" onChange={inputChangeHandler}/>😊</label>
+                    <label><input required type="radio" name="emotion" value="3" onChange={inputChangeHandler}/>😢</label>
+                    <label><input required type="radio" name="emotion" value="4" onChange={inputChangeHandler}/>😡</label>
                 </div>
                 <button type='submit' className='money__save__btn'>저장하기</button>
             </form>
