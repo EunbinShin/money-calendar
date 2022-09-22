@@ -1,9 +1,9 @@
 import React, {useState,useContext}from 'react';
 import Calendar from 'react-calendar'
-import './MainCalendar.css'
 import myContext from '../../store/my-context-api'
 import moment from "moment";
 import PopupModal from '../modal/PopupModal';
+import './MainCalendar.css'
 
 const MainCalendar = () => {
     const context = useContext(myContext)
@@ -11,7 +11,7 @@ const MainCalendar = () => {
     const [popData, setPopData] = useState()
     const tileContent = (date) => {
         let html = []
-        context.myUsedLog.map((mylog, i)=>{
+        context.myUsedLog.forEach((mylog, i)=>{
             if(mylog.date === moment(date).format('YYYY-MM-DD')){
                 html.push(
                     <div key={i} className="mylog">
