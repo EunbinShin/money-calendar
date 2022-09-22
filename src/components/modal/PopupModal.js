@@ -7,11 +7,11 @@ import Card from '../UI/Card';
 const PopupModal = (props) => {
     const context = useContext(myContext)
     const emotioEmoji = (emotion) => {
-        if(emotion == 1){
+        if(emotion === '1'){
             return '😍'
-        }else if(emotion == 2){
+        }else if(emotion === '2'){
             return '😊'
-        }else if(emotion == 3){
+        }else if(emotion === '3'){
             return '😢'
         }else{
             return '😡'
@@ -24,9 +24,9 @@ const PopupModal = (props) => {
                 <div className='backdrop' onClick={()=>{context.popUpTrigger(false)}}></div>
                 <Card className='modal'>
                     <h2 className='header'>{moment(props.popDate).format('YYYY-MM-DD')}</h2>
-                    {props.popData.map((data)=>{
+                    {props.popData.map((data, index)=>{
                         return(
-                            <div className='content'>
+                            <div className='content' key={index}>
                                 <div>지출이름 : {data.name}</div>
                                 <div>지출원 : {data.money}원</div>
                                 <div>기분 : {emotioEmoji(data.emotion)}</div>
