@@ -4,9 +4,11 @@ const myContext = React.createContext({
     onAddAccount: ()=>{},
     onChangeInput: ()=>{},
     popUpTrigger: ()=>{}, 
+    setPageIndex: ()=>{},
     myUsedLog: [],
     inputState: {},
-    isPopUp: false
+    isPopUp: false,
+    page_index: 0
 })
 
 export const MyContextProvider = (props)=>{
@@ -32,6 +34,7 @@ export const MyContextProvider = (props)=>{
         emotion: 4
     }])
     const [isPopUp, setIsPopUp] = useState(false)
+    const [page_index, setPageIndex] = useState(0)
     const inputReducer = (state, action) => {
         if(action.type === 'USER_INPUT'){
             return {
@@ -73,7 +76,12 @@ export const MyContextProvider = (props)=>{
             return [...prevData, account]
         })
         dispatchUserInputState({type: 'USER_RESET'})
-        console.log(myUsedLog)
+        //console.log(myUsedLog)
+    }
+
+    const pageIndexHanlder = (index) => {
+        setPageIndex(index)
+        console.log(index)
     }
 
     return (
@@ -82,9 +90,11 @@ export const MyContextProvider = (props)=>{
                 onAddAccount: addAccountHander,
                 popUpTrigger: setPopUpHandelr,
                 onChangeInput: inputChangeHandler,
+                setPageIndex: pageIndexHanlder,
                 myUsedLog: myUsedLog,
                 inputState: userInputState,
-                isPopUp: isPopUp
+                isPopUp: isPopUp,
+                page_index: page_index
             }}>
             {props.children}
         </myContext.Provider>

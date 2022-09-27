@@ -32,13 +32,13 @@ const Chart = () => {
     for(let data of context.myUsedLog){
         const month = moment(data.date).month()
         console.log(data)
-        if(data.emotion == 1){
+        if(data.emotion === 1){
             monthly_data[month].emotion1 += parseInt(data.money)
-        }else if(data.emotion == 2){
+        }else if(data.emotion === 2){
             monthly_data[month].emotion2 += parseInt(data.money)
-        }else if(data.emotion == 3){
+        }else if(data.emotion === 3){
             monthly_data[month].emotion3 += parseInt(data.money)
-        }else if(data.emotion == 4){
+        }else if(data.emotion === 4){
             monthly_data[month].emotion4 += parseInt(data.money)
         }
     }

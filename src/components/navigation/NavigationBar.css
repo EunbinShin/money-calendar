@@ -1,0 +1,19 @@
+/* Mobile */
+@media (max-width: 639px) {
+    .navigation__bar ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-user-select:none;
+        -moz-user-select:none;
+        -ms-user-select:none;
+        user-select:none
+    }
+    .navigation__bar li {
+        list-style: none;
+        display: inline-block;
+        border: 1px solid black;
+        text-align: center;
+        flex: 1;
+    }
+}
