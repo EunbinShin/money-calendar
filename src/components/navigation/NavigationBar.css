@@ -7,13 +7,19 @@
         -webkit-user-select:none;
         -moz-user-select:none;
         -ms-user-select:none;
-        user-select:none
+        user-select:none;
+        border-bottom: 2px solid rgb(230, 230, 230);
     }
+
+    .navigation__bar li:first-child{
+        border-right: 1px solid gray;
+    }
+
     .navigation__bar li {
         list-style: none;
         display: inline-block;
-        border: 1px solid black;
         text-align: center;
         flex: 1;
+        padding: 1vh;
     }
 }

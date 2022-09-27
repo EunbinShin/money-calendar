@@ -1,17 +1,21 @@
 import React, {useState, useReducer} from 'react'
+import moment from "moment";
 
 const myContext = React.createContext({
     onAddAccount: ()=>{},
     onChangeInput: ()=>{},
     popUpTrigger: ()=>{}, 
     setPageIndex: ()=>{},
+    setYear: ()=>{},
     myUsedLog: [],
     inputState: {},
     isPopUp: false,
-    page_index: 0
+    page_index: 0,
+    year: '2020'
 })
 
 export const MyContextProvider = (props)=>{
+    const [year, setYear] = useState(moment(new Date()).year())
     const [myUsedLog, setMyUsedLog] = useState([{
         date: '2022-09-01',
         name: 'test',
@@ -84,6 +88,12 @@ export const MyContextProvider = (props)=>{
         console.log(index)
     }
 
+    const yearHandler = (index) => {
+        setYear((prevData)=>{
+            return prevData + index
+        })
+    }
+
     return (
         <myContext.Provider
             value={{
@@ -91,10 +101,12 @@ export const MyContextProvider = (props)=>{
                 popUpTrigger: setPopUpHandelr,
                 onChangeInput: inputChangeHandler,
                 setPageIndex: pageIndexHanlder,
+                setYear: yearHandler,
                 myUsedLog: myUsedLog,
                 inputState: userInputState,
                 isPopUp: isPopUp,
-                page_index: page_index
+                page_index: page_index,
+                year: year
             }}>
             {props.children}
         </myContext.Provider>

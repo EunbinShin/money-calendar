@@ -30,39 +30,52 @@ const Chart = () => {
     ]
 
     for(let data of context.myUsedLog){
-        const month = moment(data.date).month()
-        console.log(data)
-        if(data.emotion === 1){
-            monthly_data[month].emotion1 += parseInt(data.money)
-        }else if(data.emotion === 2){
-            monthly_data[month].emotion2 += parseInt(data.money)
-        }else if(data.emotion === 3){
-            monthly_data[month].emotion3 += parseInt(data.money)
-        }else if(data.emotion === 4){
-            monthly_data[month].emotion4 += parseInt(data.money)
+        const logYear = moment(data.date).year()
+        if(logYear == context.year){
+            const month = moment(data.date).month()
+            console.log(data)
+            if(data.emotion === 1){
+                monthly_data[month].emotion1 += parseInt(data.money)
+            }else if(data.emotion === 2){
+                monthly_data[month].emotion2 += parseInt(data.money)
+            }else if(data.emotion === 3){
+                monthly_data[month].emotion3 += parseInt(data.money)
+            }else if(data.emotion === 4){
+                monthly_data[month].emotion4 += parseInt(data.money)
+            }
         }
     }
 
     return (
-        <div style={{height: '100vh', backgroundColor: 'pink'}}>
-            <ResponsiveContainer width="100%" height="80%">
+        <div style={{height: '80vh'}}>
+            <div>
+                <sapn 
+                onClick={()=>{
+                    context.setYear(-1)
+                }}> ◀ </sapn>
+                <span> {context.year}년 </span>
+                <sapn
+                onClick={()=>{
+                    context.setYear(+1)
+                }}> ▶ </sapn>
+            </div>
+            <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                data={monthly_data}
-                layout='vertical'
-                margin={{
-                    top: 20,
-                    right: 30,
-                    bottom: 5
-                }}
-                >
-                <Legend />
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis  type="number"/>
-                <YAxis  type="category" dataKey="label"/>
-                <Bar name="😍" dataKey="emotion1" stackId="a" fill="#8884d8" />
-                <Bar name="😊" dataKey="emotion2" stackId="a" fill="#82ca9d" />
-                <Bar name="😢" dataKey="emotion3" stackId="a" fill="red" />
-                <Bar name="😡" dataKey="emotion4" stackId="a" fill="black" />
+                    data={monthly_data}
+                    layout='vertical'
+                    margin={{
+                        top: 20,
+                        right: 30,
+                        bottom: 5
+                    }}>
+                    <Legend />
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis  type="number"/>
+                    <YAxis  type="category" dataKey="label"/>
+                    <Bar name="😍" dataKey="emotion1" stackId="a" fill="#8884d8" />
+                    <Bar name="😊" dataKey="emotion2" stackId="a" fill="#82ca9d" />
+                    <Bar name="😢" dataKey="emotion3" stackId="a" fill="red" />
+                    <Bar name="😡" dataKey="emotion4" stackId="a" fill="black" />
                 </BarChart>
             </ResponsiveContainer>
         </div>
